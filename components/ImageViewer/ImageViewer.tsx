@@ -1,9 +1,31 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  ImageSourcePropType,
+} from 'react-native';
 
-export const ImageViewer = () => {
-  const PlaceholderImage = require('../../assets/images/background-image.png');
-  return <Image source={PlaceholderImage} style={styles.image} />;
+interface ImageViewerProps {
+  placeholderImageSource: string;
+  selectedImage?:
+    | string
+    | {
+        uri: ImageSourcePropType;
+      }
+    | null;
+}
+
+export const ImageViewer = ({
+  placeholderImageSource,
+  selectedImage,
+}: ImageViewerProps) => {
+  const imageSource = selectedImage
+    ? { uri: selectedImage }
+    : placeholderImageSource;
+
+  return <Image source={imageSource} style={styles.image} />;
 };
 
 const styles = StyleSheet.create({
